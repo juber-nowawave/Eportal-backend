@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const DateEntrySchema = new mongoose.Schema({
+  entryType:{
+    type:String,
+    required:true,
+    default:"not available",
+  },
   esslId: {
     type: String,
     required: true,
@@ -23,7 +28,11 @@ const DateEntrySchema = new mongoose.Schema({
   workingHour:{
     type: String,
     default:"not available",
-  }
+  },
+  attendenceType:{
+    type:String,
+    default:"not available",
+  },
 });
 
 const MainSchema = new mongoose.Schema({

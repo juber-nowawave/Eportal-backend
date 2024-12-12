@@ -86,121 +86,59 @@ exports.checkOut = async (req, res) => {
   }
 };
 
-// exports.getTotalDurationWeek = async (req, res) => {
-//   try {
-//     const userId = req.query.userid || req.user._id;
-//     const { startDate, endDate } = req.query;
 
-//     // Define the date range using query parameters or defaulting to the current ISO week (Monday to Sunday)
-//     const startOfRange = startDate
-//       ? moment(startDate).startOf("day")
-//       : moment().startOf("isoWeek"); // Start of the current ISO week (Monday)
-//     const endOfRange = endDate
-//       ? moment(endDate).endOf("day")
-//       : moment().endOf("isoWeek"); // End of the current ISO week (Sunday)
+// // biometric attendence Data 
+// exports.getTotalDurationWeek = async (req,res) =>{
+//     try{
+//       const {userESSLid , startDate , endDate} = req.query;
+//       console.log('start' , startDate , 'end', endDate , 'id' , userESSLid);
+//       // const result = await biometricAttendence.find({$and:[
+//       //   {date:{$gte:startDate}},
+//       //   {date:{$lte:endDate}},
+//       //   {records:{$elemMatch:{esslId:userESSLid}}}
+//       // ]});
 
-//     // Retrieve attendance records within the date range
-//     const attendances = await Attendance.find({
-//       userId,
-//       "sessions.checkIn": {
-//         $gte: startOfRange.toDate(),
-//         $lte: endOfRange.toDate(),
-//       },
-//     });
-
-//     if (!attendances.length) {
-//       return res.status(404).json({
-//         message: "No attendance records found for the specified date range",
-//       });
-//     }
-
-//     // Calculate the duration for sessions within the date range
-//     const filteredAttendances = attendances.map(({ createdAt, sessions }) => {
-//       const filteredSessions = sessions.filter(({ checkIn, checkOut }) => {
-//         // Ensure checkIn or checkOut fall within the specified range
-//         const inRange = (date) =>
-//           moment(date).isBetween(startOfRange, endOfRange, null, "[]");
-//         return inRange(checkIn) || (checkOut && inRange(checkOut));
-//       });
-
-//       const totalDuration = filteredSessions.reduce(
-//         (duration, { checkIn, checkOut }) => {
-//           return checkOut
-//             ? duration + moment(checkOut).diff(moment(checkIn))
-//             : duration;
+//       const result = await biometricAttendence.aggregate([
+//         {
+//           $match: {
+//             $and: [
+//               { date: { $gte: startDate } },
+//               { date: { $lte: endDate } },
+//               { "records.esslId": userESSLid }
+//             ]
+//           }
 //         },
-//         0
-//       );
-
-//       return {
-//         date: moment(createdAt).format("YYYY-MM-DD"),
-//         totalDuration: totalDuration > 0 ? formatDuration(totalDuration) : null,
-//         sessions: filteredSessions.map(({ checkIn, checkOut }) => ({
-//           checkIn: moment(checkIn).format("YYYY-MM-DD HH:mm:ss"),
-//           checkOut: checkOut
-//             ? moment(checkOut).format("YYYY-MM-DD HH:mm:ss")
-//             : null,
-//         })),
-//       };
-//     });
-
-//     res.status(200).json({
-//       dateRange: {
-//         startDate: startOfRange.format("YYYY-MM-DD"),
-//         endDate: endOfRange.format("YYYY-MM-DD"),
-//       },
-//       attendances: filteredAttendances,
-//     });
-//   } catch (error) {
-//     console.error("Error retrieving total duration:", error);
-//     res.status(500).json({ message: "Error retrieving total duration", error });
-//   }
-// };
-
-
-// biometric attendence Data 
-exports.getTotalDurationWeek = async (req,res) =>{
-    try{
-      const {userESSLid , startDate , endDate} = req.query;
-      console.log('start' , startDate , 'end', endDate , 'id' , userESSLid);
-      // const result = await biometricAttendence.find({$and:[
-      //   {date:{$gte:startDate}},
-      //   {date:{$lte:endDate}},
-      //   {records:{$elemMatch:{esslId:userESSLid}}}
-      // ]});
-
-      const result = await biometricAttendence.aggregate([
-        {
-          $match: {
-            $and: [
-              { date: { $gte: startDate } },
-              { date: { $lte: endDate } },
-              { "records.esslId": userESSLid }
-            ]
-          }
-        },
-        {
-          $project: {
-            date: 1, 
-            day:1,
-            records: {
-              $filter: {
-                input: "$records",
-                as: "record",
-                cond: { $eq: ["$$record.esslId", userESSLid] }
-              }
-            }
-          }
-        }
-      ]);
-      console.log(result); 
-      res.status(200).json({ message: "Retrieving total duration successfull",result});
+//         {
+//           $project: {
+//             date: 1, 
+//             day:1,
+//             records: {
+//               $filter: {
+//                 input: "$records",
+//                 as: "record",
+//                 cond: { $eq: ["$$record.esslId", userESSLid] }
+//               }
+//             }
+//           }
+//         }
+//       ]);
+//       console.log(result); 
+//       res.status(200).json({ message: "Retrieving total duration successfull",result});
        
-    }catch(err){
-    console.error("Error retrieving total duration:", err);
-    res.status(500).json({ message: "Error retrieving total duration", err });
-    }
-}
+//     }catch(err){
+//     console.error("Error retrieving total duration:", err);
+//     res.status(500).json({ message: "Error retrieving total duration", err });
+//     }
+// }
+
+// exports.editAttendenceType = async (req , res) => {
+//     try{
+//       const data = req.body;
+      
+//     }catch(error){
+//       res.status(500).json({ message: "Error retrieving total duration", err });
+//     }
+// }
 
 exports.addHoliday = async (req, res) => {
   try {

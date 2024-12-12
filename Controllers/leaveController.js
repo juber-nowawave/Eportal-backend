@@ -15,7 +15,7 @@ async function postLeave(req,res){
 async function getLeave(req,res){
     try{
      const data = await leaveModel.find({});
-     console.log('data -> ',data);
+   //   console.log('data -> ',data);
      if(data){
         return res.json(responseHandler(1, 200, "fetch all leave data successfully",data));
      }else{

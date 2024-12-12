@@ -6,7 +6,7 @@ const authMiddleware = require('../Middlewares/authMiddleware')
 
 router.post("/checkIn",authMiddleware, checkIn );
 router.post("/checkOut",authMiddleware, checkOut );
-router.get("/totalDuration",authMiddleware, getTotalDurationWeek );
+// router.get("/totalDuration",authMiddleware, getTotalDurationWeek );
 router.post("/addholiday", addHoliday );
 router.get("/getholiday", getHoliday );
 router.get("/weekSummary",authMiddleware, getWeekSummaryWithWeekends );

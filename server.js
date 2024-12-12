@@ -8,6 +8,7 @@ const swaggerDocs = require('./config/swaggerConfig');
 dotenv.config();
 connectDB();
 
+
 const app = express();
 app.use(express.json()); 
 app.use(express.urlencoded({extended:true}));
@@ -26,9 +27,12 @@ app.use('/Employee', require('./Routes/Attrition.routes'));
 app.use('/Employee', require('./Routes/Attendance.routes'));
 app.use('/Employee/biometric',require('./Routes/biometricAttendence.route'))
 app.use('/Employee', require('./Routes/checkOutDetails.routes'));
-app.use('/Employee', require('./Routes/sessionChange.routes'));
+app.use('', require('./Routes/sessionChange.routes'));
 app.use('/leave',require('./Routes/leave.routes'));
 app.use('/milestone',require('./Routes/Milestone.routes'))
+app.use('/Employee/requests',require('./Routes/AttendenceTypeRequests.router'));
+app.use('/Employee/requests',require('./Routes/LeaveApplyRequests.route'));
+// app.use('/Manager',require('./Routes/ManagerRequests.router'));
 
 app.get("/", async (req, res) => {
   res.send("Welcome")
