@@ -72,7 +72,6 @@ exports.getSpecificEmployees = async (req, res) => {
     if (employees.length === 0) {
       return res.status(404).json(responseHandler(0, 404, "No employees found."));
     }
-    console.log('jhh',employees);
     return res.json(responseHandler(1, 200, "Employees retrieved successfully", employees));
   } catch (error) {
     return res.json(responseHandler(0, 500, "Internal server error", error.message));

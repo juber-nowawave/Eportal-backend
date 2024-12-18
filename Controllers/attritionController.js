@@ -51,12 +51,14 @@ exports.getSpecificAttrition = async (req, res) => {
 
 exports.deleteAttrition = async (req,res) =>{
    try{
-    const { id }= req.body;
-    const data = await EmployeeAttrition.findById(id);
+    const { _id }= req.body;
+    console.log('ssss',_id);
+    
+    const data = await EmployeeAttrition.findById(_id);
     // console.log('')
     if(data){
-      const result = await EmployeeAttrition.updateMany({_id:id},{$set:{isActive:false}});
-      res.json(responseHandler(1, 200, "Attrition Deleted successfully"));
+      const result = await EmployeeAttrition.updateMany({_id:_id},{$set:{isActive:false}});
+      res.json(responseHandler(1, 200, "Attrition Deleted successfully",result));
     }else{
       res.json(responseHandler(0, 401, "Attrition ID not found"));
     } 

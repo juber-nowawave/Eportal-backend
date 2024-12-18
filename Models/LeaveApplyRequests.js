@@ -10,7 +10,7 @@ const leaveSchema = new mongoose.Schema({
     },
     userName:{
         type:String,
-        default:'user'
+        default:'Not Provided'
     },
     esslId:{
         type:String,
@@ -22,19 +22,15 @@ const leaveSchema = new mongoose.Schema({
     },
     applyDate:{
       type:String,
-      defualt: Date.now,
     },
     forPeriod:{
         type:String,
-        defualt: Date.now,
     },
     fromDate:{
         type:String,
-        defualt: Date.now,
     },
     toDate:{
         type:Date,
-        defualt: Date.now,
     },
     startDay:{
       type:String,

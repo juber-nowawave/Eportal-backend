@@ -120,9 +120,9 @@ const putRequests = async (req, res) => {
               if (result.matchedCount === 0) {
                   return res.json(responseHandler(0, 404, "No matching requests found to update", null));
               }
-              findResult = await attendenceTypeRequestsModel.find({})
+            //   findResult = await attendenceTypeRequestsModel.find({})
               res.json(
-                  responseHandler(1,200,"Successfully updated AttendenceType request data",findResult)
+                  responseHandler(1,200,"Successfully updated AttendenceType request data",result)
               );
          }else{
               res.json(
