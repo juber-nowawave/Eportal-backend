@@ -69,6 +69,8 @@ exports.getSpecificEmployees = async (req, res) => {
         {esslId:esslId},
       ]
     });
+
+    console.log('kkll',req.query)
     if (employees.length === 0) {
       return res.status(404).json(responseHandler(0, 404, "No employees found."));
     }

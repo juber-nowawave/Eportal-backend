@@ -33,6 +33,7 @@ app.use('/milestone',require('./Routes/Milestone.routes'))
 app.use('/Employee/requests',require('./Routes/AttendenceTypeRequests.router'));
 app.use('/Employee/requests',require('./Routes/LeaveApplyRequests.route'));
 app.use('/Employee/requests',require('./Routes/EmployeeDetailsRequest.route'));
+app.use('/Employee/requests',require('./Routes/RegularizeRequest.route'));
 // app.use('/Manager',require('./Routes/ManagerRequests.router'));
 
 app.get("/", async (req, res) => {
