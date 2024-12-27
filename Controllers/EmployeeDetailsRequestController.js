@@ -83,7 +83,7 @@ const postEmployeeDetailRequests = async (req, res) => {
         1,
         200,
         "succesfully post Employee Details request Data Stored",
-        "lkl"
+        result
       )
     );
   } catch (error) {
@@ -103,7 +103,6 @@ const postEmployeeDetailRequests = async (req, res) => {
 const putEmployeeDetailRequests = async (req, res) => {
   try {
     const { requestData, approvalType } = req.body;
-    console.log("Request Details:", req.body);
 
     // Validation
     if (!requestData || !Array.isArray(requestData) || requestData.length === 0) {
@@ -133,7 +132,6 @@ const putEmployeeDetailRequests = async (req, res) => {
            { 'information._id': obj.rowId },
            { $set: { 'information.$.requestStatus': approvalType } }
       );
-      console.log('lkllll',result);
     })
 
     if (approvalType !== "rejected") {
@@ -271,7 +269,6 @@ const putEmployeeDetailRequests = async (req, res) => {
     //            { 'information._id': obj.rowId },
     //            { $set: { 'information.$.requestStatus': approvalType } }
     //       );
-    //       console.log('lkllll',result);
     //  })
 
 

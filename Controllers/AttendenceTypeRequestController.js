@@ -40,7 +40,6 @@ const getAllRequests = async (req,res) => {
 }
 
 const postRequests = async (req,res) => {
-    console.log(req.body);
     try {
         
         const {esslId,userName,date,attendenceType,attendenceTypeFeildId} = req.body
@@ -80,7 +79,6 @@ const putRequests = async (req, res) => {
                const {attendenceDate , esslId , attendenceTypeFeildId, attendenceType , requestStatus} = request;
                const fieldId = new ObjectId(attendenceTypeFeildId);
      
-               console.log('update',attendenceType , attendenceTypeFeildId);
                if (attendenceTypeFeildId && attendenceType) {
                    const updateResult = await biometricAttendenceModel.updateOne(
                     {
@@ -141,4 +139,59 @@ const putRequests = async (req, res) => {
  };
  
 
-module.exports = {getAllRequests , postRequests, putRequests};
+ const updateByAdmin = async (req, res) => {
+     
+    try {
+        const { data } = req.body;
+        let updateResult = null;
+        const {attendenceDate , esslId , attendanceTypeFieldId, attendenceType} = data;
+              if (attendanceTypeFieldId && attendenceType) {
+                   updateResult = await biometricAttendenceModel.updateOne(
+                   {
+                       date: attendenceDate, 
+                       "records.esslId": esslId
+                   },
+                   [
+                       {
+                           $set: {
+                               records: {
+                                   $map: {
+                                       input: "$records",
+                                       as: "record",
+                                       in: {
+                                           $cond: [
+                                               { $eq: ["$$record.esslId", esslId] },
+                                               {
+                                                   $mergeObjects: ["$$record", { attendenceType: attendenceType}]
+                                               },
+                                               "$$record"
+                                           ]
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   ]
+               );
+               
+               if (updateResult.matchedCount === 0) {
+                 responseHandler(1,400,'No matching records found to update in biometricAttendence for ID',updateResult)
+               }
+            }
+            
+             res.json(
+                 responseHandler(1,200,"Successfully updated AttendenceType request data",updateResult)
+             );
+
+    } catch (error) {
+        console.error('Error during update AttendenceType request data:', error);
+        res.json(
+            responseHandler(0, 500, "Error during update AttendenceType request data", error.message)
+        );
+    }
+};
+
+
+
+
+module.exports = {getAllRequests , postRequests, putRequests,updateByAdmin};

@@ -14,7 +14,6 @@ const postBiometricAttendence = async (req, res) => {
 
           const document = new biometricAttendence(data);
           document.save();
-          console.log('success:', document);
           res.json(responseHandler(1, 200, "Biometric Data succesfully Stored", data));
      } catch (error) {
           console.log('Error During post Biometric attendence Data');
@@ -25,7 +24,6 @@ const postBiometricAttendence = async (req, res) => {
 const getBiometricAttendence = async (req, res) => {
      try {
           const result = await biometricAttendence.find({});
-          console.log('result');
           res.json(responseHandler(1, 200, "Biometric Atttendence Data succesfully fetched", result));
      } catch (error){
           res.json(responseHandler(0, 400, "Error During fetched Biometric attendence Data", error));
@@ -37,7 +35,6 @@ const getBiometricAttendence = async (req, res) => {
 const getTotalDurationWeek = async (req,res) =>{
      try{
        const {userESSLid , startDate , endDate} = req.query;
-       console.log('start' , startDate , 'end', endDate , 'id' , userESSLid);
        // const result = await biometricAttendence.find({$and:[
        //   {date:{$gte:startDate}},
        //   {date:{$lte:endDate}},
@@ -79,10 +76,8 @@ const getTotalDurationWeek = async (req,res) =>{
  
  const editAttendenceType = async (req , res) => {
      try{ 
-          console.log(req.body)
           const {userESSLid , date, attendenceType ,  attendenceTypeFeildId} = req.body;
           const result = await biometricAttendence.findOne({date:date});
-          console.log(result)
        res.json(200)
      }catch(err){
        res.status(500).json({ message: "Error retrieving total duration", err });

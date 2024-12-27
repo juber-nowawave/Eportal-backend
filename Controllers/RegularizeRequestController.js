@@ -116,11 +116,13 @@ const putRegulariseRequests = async (req, res) => {
     // Update request status
     await Promise.all(
       requestData.map(async (obj) => {
-        const result = await requestRegulariseModel.updateMany(
-          { _id: obj.rowId },
-          { $set: { requestStatus: approvalType } }
-        );
-        console.log(`Updated request status for ${obj.rowId}`, result);
+        if(obj.rowId != undefined){ // this condition used when admin update data by self without any request of changes
+          const result = await requestRegulariseModel.updateMany(
+            { _id: obj.rowId },
+            { $set: { requestStatus: approvalType } }
+          );
+          console.log(`Updated request status for ${obj.rowId}`, result);
+        }
       })
     );
 
@@ -158,7 +160,6 @@ const putRegulariseRequests = async (req, res) => {
               $set: { "records.$.time": checkOutTime },
             }
           );
-          console.log(`Updated check-out record`, result2);
         } else {
           // Update either check-in or check-out
           const newTime = type === "checkIn" ? checkInTime : checkOutTime;
@@ -171,10 +172,6 @@ const putRegulariseRequests = async (req, res) => {
             {
               $set: { "records.$.time": newTime },
             }
-          );
-          console.log(
-            `Updated ${type} record for entry ID ${entryId}`,
-            result
           );
         }
       }

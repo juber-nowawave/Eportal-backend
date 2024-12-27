@@ -21,15 +21,15 @@ const WorkExperienceSchema = new mongoose.Schema({
 const EducationHistorySchema = new mongoose.Schema({
     highestQualification: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     year: { 
         type: Number, 
-        required: true 
+        // required: true 
     },
     marks: { 
         type: Number, 
-        required: true 
+        // required: true 
     }
 });
 
@@ -105,7 +105,6 @@ const EmployeeProfileSchema = new mongoose.Schema({
     },
     probationMonths: { 
         type: Number, 
-        required: true 
     },
     workExperience: [
         WorkExperienceSchema

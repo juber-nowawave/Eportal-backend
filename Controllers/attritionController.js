@@ -38,7 +38,6 @@ exports.getSpecificAttrition = async (req, res) => {
        {employee_name:employeeName},
       ]
     });
-    console.log('data',data);
     return res.json(
       responseHandler(1, 200, "Attrition retrived successfull.", data)
     );

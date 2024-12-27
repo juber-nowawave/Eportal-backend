@@ -49,7 +49,6 @@ exports.deleteEmployee = async (req, res) => {
     const result = await EmployeeDetails.find({_id:{$in:_id}});
     if(result){
       const data = await EmployeeDetails.updateMany({_id:{$in:_id } , isActive:true},{$set:{isActive:false}});
-      console.log('jjj3',result);
       return res.status(200).json(responseHandler(1, 200, "employee Deteled successfully", data));
     }
       return res.status(404).json(responseHandler(0, 404, "No employee found with the given ID."));
@@ -70,7 +69,6 @@ exports.getSpecificEmployees = async (req, res) => {
       ]
     });
 
-    console.log('kkll',req.query)
     if (employees.length === 0) {
       return res.status(404).json(responseHandler(0, 404, "No employees found."));
     }

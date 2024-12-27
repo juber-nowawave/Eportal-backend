@@ -3,11 +3,12 @@ const responseHandler = require("../library/responseTemplate");
 
 const getAllLeaveRequests = async (req,res) => {
      try {
-          // console.log(req.query);
-          const {startDate, endDate, requestType, requestStatus} = req.query;
+          const {startDate, endDate, requestType, requestStatus,esslId} = req.query;
           
-          if(Object.keys(req.query).length == 0){
-               const result = await requestLeaveModel.find({});
+          if(Object.keys(req.query).length == 1){
+               const result = await requestLeaveModel.find({
+                    esslId:esslId,
+               });
                res.json(responseHandler(1, 200, "succesfully get AttendenceType request Data Stored", result));
           }
           else if(requestStatus == 'all'){
@@ -48,7 +49,7 @@ const postLeaveRequests = async (req,res) => {
         const result = new requestLeaveModel(req.body);
         result.save();
 
-        res.json(responseHandler(1, 200, "succesfully post AttendenceType request Data Stored", 'lkl'));
+        res.json(responseHandler(1, 200, "succesfully post AttendenceType request Data Stored", result));
    } catch (error) {
         console.log('Error During post AttendenceType request Data');
         res.json(responseHandler(1, 400, "Error During post AttendenceType request Data", error));
@@ -58,7 +59,6 @@ const postLeaveRequests = async (req,res) => {
 
 
 const putLeaveRequests = async (req, res) => {
-     
      try {
          const { requestIds, approvalType } = req.body;
          if (!requestIds || !Array.isArray(requestIds) || requestIds.length === 0) {
