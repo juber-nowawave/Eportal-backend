@@ -1,6 +1,7 @@
 const biometricAttendence = require('../Models/biometricAttendence');
 const responseHandler = require("../library/responseTemplate");
 
+// this below post function would be hit by biometric attendence server system by cron-job
 const postBiometricAttendence = async (req, res) => {
      try {
           let data = {

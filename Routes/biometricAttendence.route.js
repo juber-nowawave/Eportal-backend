@@ -10,6 +10,8 @@ const {postBiometricAttendence,getBiometricAttendence, getTotalDurationWeek ,edi
 // router.get("/weekSummary",authMiddleware, getWeekSummaryWithWeekends );
 
 router.route('/attendence').post(postBiometricAttendence).get(getBiometricAttendence);
+// this above endpoint would be hit by biometric attendence server system by cron-job
+
 router.get("/totalDuration",authMiddleware, getTotalDurationWeek);
 router.put('/editAttendenceType',editAttendenceType);
 
