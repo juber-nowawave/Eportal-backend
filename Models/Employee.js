@@ -5,15 +5,15 @@ const bcrypt = require('bcryptjs');
 const WorkExperienceSchema = new mongoose.Schema({
     companyName: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     role: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     experience: { 
         type: Number, 
-        required: true 
+        // required: true 
     } // Experience in years
 });
 
@@ -21,7 +21,7 @@ const WorkExperienceSchema = new mongoose.Schema({
 const EducationHistorySchema = new mongoose.Schema({
     highestQualification: { 
         type: String, 
-        // required: true 
+        required: true
     },
     year: { 
         type: Number, 
@@ -51,7 +51,7 @@ const EmployeeProfileSchema = new mongoose.Schema({
     },
     lastName: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     dateOfBirth: { 
         type: Date, 
@@ -74,7 +74,7 @@ const EmployeeProfileSchema = new mongoose.Schema({
     },
     address: { 
         type: String, 
-        required: true 
+        required: true
     },
     emergencyNumber: { 
         type: String, 

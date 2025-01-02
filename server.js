@@ -14,6 +14,8 @@ const app = express();
 app.use(express.json()); 
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
+
+// below line used for static build frontend
 app.use('/_next/static', express.static(path.join(__dirname, '.next/static'), { fallthrough: false }));
 // Serve Swagger documentation at /api-docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

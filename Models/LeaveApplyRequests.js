@@ -12,9 +12,13 @@ const leaveSchema = new mongoose.Schema({
         type:String,
         default:'Not Provided'
     },
+    userId:{
+      type:String,
+      required:true,
+    },
     esslId:{
         type:String,
-        default:0
+        required:true,
     },
     isNotificationActive:{
         type:Boolean,

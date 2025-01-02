@@ -73,8 +73,7 @@ const putLeaveRequests = async (req, res) => {
              { _id: { $in: requestIds } },
              { $set: { requestStatus: approvalType } }        
          );
-         console.log('mnnn',result);
-        
+         
          if(approvalType != 'rejected'){
               if (result.matchedCount === 0) {
                   return res.json(responseHandler(0, 404, "No matching requests found to update", null));
